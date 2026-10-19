@@ -1,4 +1,135 @@
-# Communication_App 后端接口说明
+# Communication_App
+
+一个面向校园场景的通讯与社交应用，提供用户注册登录、好友管理、动态发布、广场互动、兴趣资讯推荐和即时聊天等功能。
+
+项目采用前后端分离架构，后端基于 **Django + Django REST Framework** 实现 RESTful 风格接口，前端可独立部署。
+
+---
+
+## 功能特性
+
+- **用户系统**：注册、登录、Token 鉴权、个人信息更新、头像上传（七牛云）
+- **好友管理**：添加好友、回应好友请求、好友列表、删除好友（软删除）
+- **动态模块**：发布动态、按分类（食/行/学/乐）浏览、查看我的动态、删除动态
+- **广场模块**：浏览广场信息、发布广场内容
+- **资讯推荐**：根据用户兴趣标签（`like` 字段）返回个性化资讯，同时支持按水果、火锅、奶茶、三餐、球类、跑步、游泳、瑜伽、英语、书法、绘画、读书、唱K、电影、下棋、轰趴等分类获取资讯
+- **聊天模块**：提供用户间聊天接口（路由已挂载，具体接口见文档）
+- **问卷模块**：支持用户问卷数据提交与获取
+
+---
+
+## 技术栈
+
+| 层级 | 技术 |
+|---|---|
+| 后端框架 | Python 3.x、Django、Django REST Framework |
+| 认证方式 | 自定义 Token（通过 URL 查询参数 `token` 传递） |
+| 数据库 | Django ORM 支持的数据库（如 SQLite / MySQL，按实际配置） |
+| 文件存储 | 七牛云对象存储（头像等） |
+| 接口风格 | `APIView` 风格，绝大多数接口使用 `POST` 方法 |
+| 前端 | 独立前端项目（目录结构以实际仓库为准） |
+
+---
+
+## 目录结构
+
+```text
+Communication_App/
+├── backend/                 # Django 后端
+│   ├── backend03/           # 项目配置（settings、根 urls 等）
+│   ├── user/                # 用户模块：注册、登录、好友管理、问卷等
+│   ├── event/               # 动态模块
+│   ├── square/              # 广场模块
+│   ├── news/                # 资讯模块
+│   ├── talk/                # 聊天模块
+│   ├── friend/              # 好友模型层（接口通过 user 模块暴露）
+│   ├── manage.py
+│   └── requirements.txt     # 依赖清单（如有）
+├── frontend/                # 前端项目（如有，以实际为准）
+├── docs/
+│   └── api/                 # 接口文档
+│       ├── README.md        # 接口总览
+│       ├── user-api.md
+│       ├── event-api.md
+│       ├── square-api.md
+│       ├── news-api.md
+│       ├── talk-api.md
+│       └── friend-api.md
+└── README.md
+```
+
+> 如果接口文档采用单文件形式，可替换为 `docs/api-reference.md` 或根目录下的 `api-reference.md`。
+
+---
+
+## 快速开始
+
+### 1. 克隆仓库
+
+```bash
+git clone https://github.com/pyll/Communication_App.git
+cd Communication_App/backend
+```
+
+### 2. 创建虚拟环境并安装依赖
+
+```bash
+python -m venv venv
+source venv/bin/activate      # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+如果仓库中未提供 `requirements.txt`，至少需要安装：
+
+```bash
+pip install django djangorestframework qiniu
+```
+
+### 3. 配置环境变量
+
+根据实际代码，项目使用七牛云 SDK 上传头像。建议在 `backend03/settings.py` 或环境变量中配置以下内容：
+
+```text
+QINIU_ACCESS_KEY=你的七牛云 AccessKey
+QINIU_SECRET_KEY=你的七牛云 SecretKey
+QINIU_BUCKET=privatebucket
+QINIU_DOMAIN=你的七牛云下载域名
+```
+
+数据库配置请按实际使用的数据库修改 `DATABASES` 配置。
+
+### 4. 数据库迁移
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### 5. 启动后端服务
+
+```bash
+python manage.py runserver 0.0.0.0:8000
+```
+
+默认接口根地址为：
+
+```text
+http://127.0.0.1:8000/
+```
+
+### 6. 启动前端（如有）
+
+进入前端目录，按前端项目说明安装依赖并启动，例如：
+
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
+
+---
+
+# 后端接口说明
 
 > 基于仓库 `pyll/Communication_App/backend` 的 `urls.py` 路由配置及部分 `views.py` 源码整理。
 > 说明：`talk` 和 `friend` 模块的 `urls.py` 未能成功获取，相关接口信息可能不完整；`event` 和 `square` 模块的 `views.py` 未能成功获取，这些接口的详细参数和响应格式是基于路由配置推断的。
