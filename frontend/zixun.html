@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+    <title>资讯</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .contain {
+            width: 320px;
+            height: 500px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -250px 0 0 -160px;
+            border: 1px solid #999;
+            /*border-radius: 10px;*/
+            /*padding: 25px;*/
+            box-sizing: border-box;
+        }
+
+        .top {
+            width: 318px;
+            position: relative;
+            left: 0;
+            top: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+        }
+
+        .top_main {
+            width: 150px;
+            margin: 0 auto;
+        }
+
+        .top .wenzi,
+        .shipin {
+            width: 60px;
+            height: 100%;
+            float: left;
+            cursor: pointer;
+        }
+
+        .shipin {
+            margin-left: 20px;
+        }
+
+        a:hover {
+            color: #fa729a;
+            text-decoration: none;
+        }
+
+        .part1 {
+            width: 100%;
+            height: 75px;
+            display: none;
+            position: relative;
+        }
+
+        .part1.show {
+            display: block;
+        }
+
+        .part1_body {
+            height: 440px;
+            overflow: auto;
+        }
+
+        .part1_main {
+            width: 100%;
+            height: 90px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #aaa;
+            padding: 20px 15px 0 15px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .part1_main:hover {
+            color: #fa729a;
+        }
+
+        .cancel {
+            position: absolute;
+            right: 10px;
+            top: 8px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .part2_body {
+            height: 440px;
+            overflow: auto;
+        }
+
+        .part1_show {
+            display: none;
+
+        }
+
+        .part1_show.show {
+            display: block;
+        }
+
+        .part2_main {
+            width: 100%;
+            /*height: 150px;*/
+            display: flex;
+            border-bottom: 1px solid #aaa;
+        }
+
+        .main {
+            flex: 1;
+            height: 100%;
+        }
+
+        .image {
+            width: 140px;
+            height: 80px;
+           
+            background-size: cover;
+            margin: 15px 9px 0 10px;
+        }
+
+        .text {
+            padding: 8px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .text a {
+            color: #666;
+        }
+
+        .text a:hover {
+            color: #fa729a;
+        }
+
+        .text:hover {
+            color: #fa729a;
+        }
+
+        .fanhui {
+            font-size: 16px;
+            padding: 5px 0 0 10px;
+            cursor: pointer;
+        }
+
+        .fanhui:hover {
+            color: #fa729a;
+        }
+
+        .content {
+            padding: 15px 0px 15px 15px;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            padding-right: 15px;
+        }
+
+        .author {
+            text-align: right;
+            padding: 5px 0;
+            color: #999;
+            padding-right: 20px;
+        }
+
+        .content_main {
+            height: 300px;
+            overflow: auto;
+            text-indent: 2em;
+            line-height: 25px;
+        }
+    </style>
+    <script src="./code/jquery.min.js"></script>
+    <script src="./code/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="controLogin">
+        <div class="contain">
+
+            <div class="top">
+                <div class="top_main">
+                    <div class="wenzi">文字</div>
+                    <div class="shipin">视频</div>
+                </div>
+                <div class="cancel">返回</div>
+            </div>
+            <div class="part1 show">
+                <div class="part1_body part1_show show">
+                </div>
+                <div class="part1_show">
+                    <div class="fanhui">返回</div>
+                    <div class="content">
+                        <div class="title"></div>
+                        <div class="author"></div>
+                        <div class="content_main">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="part1">
+                <div class="part2_body">
+                    <div class="part2_main">
+                        <div class="main">
+                            <div class="image"></div>
+                            <div class="text"><a href="">◆Crunchy◆超级多的水果 ASMR_咀嚼音 NO TALKING助眠</a></div>
+                        </div>
+                        <div class="main">
+                            <div class="image"></div>
+                            <div class="text">◆Crunchy◆超级多的水果 ASMR_咀嚼音 NO TALKING助眠</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        var url = decodeURI(location.search);
+        var url_arr = url.split(',');
+        console.log(url);
+        var urlArr = url_arr[0].split('=')[1];
+        var touser = url_arr[1].split('=')[1];
+        var type = url_arr[2];
+        console.log(type);
+        var app = angular.module('myApp', []);
+        app.controller('controLogin', function ($scope) {
+            var data = [];
+            $(".cancel").click(function () {
+                window.history.go(-1);
+            });
+            $(".top_main div").click(function () {
+                var index = $(this).index();
+                console.log(index);
+                $(".part1").eq(index).addClass("show").siblings().removeClass("show");
+            });
+            function init() {
+                ajax();
+                spAjax();
+            }
+            //处理数据
+            function location(t) {
+                if (t.code == 200) {
+                    data = t.info;
+                    $(".part1_body").html('');
+                    for (var i = 0; i < t.info.length; i++) {
+                        var temp = $('<div class="part1_main">' + t.info[i].title + '</div>');
+                        $(".part1_body").append(temp);
+                    }
+                    part1mainFn();
+                }
+
+            }
+            function part1mainFn() {
+                $(".part1_main").click(function () {
+                    var index = $(this).index();
+                    console.log(index);
+                    $(".title").html(data[index].title);
+                    $(".author").html(data[index].author);
+                    $(".content_main").html(data[index].content);
+                    $(".part1_show").eq(1).addClass("show").siblings().removeClass("show");
+                });
+            }
+            $(".fanhui").click(function () {
+                $(".part1_show").eq(0).addClass("show").siblings().removeClass("show");
+            });
+            // 发送请求
+            function ajax() {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/news/getWords/'+touser+'?token=' + urlArr,
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: { token: urlArr },
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        var t = res;
+                        location(t);
+                    }
+                })
+            }
+            function spAjax() {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/news/getVideos/'+touser+'?token=' + urlArr,
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: { token: urlArr },
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        var t = res;
+                        spLocation(t);
+                    }
+                })
+            }
+            function spLocation(t) {
+                if (t.code == 200) {
+                    $(".part2_body").html('');
+                    var temp = '';
+                    var html = '';
+                    var total = 0;
+                    for (var i = 0; i < t.info.length; i++) {
+                        total++;
+                        var temp1 = '<div class="main"><div class="image"></div><div class="text"><a href="' + t.info[i].url
+                            + '" target="_blank">' + t.info[i].title + '</a></div></div>';
+                        html += temp1;
+                        if (total % 2 == 0) {
+                            temp = $('<div class="part2_main">' + html + '</div>');
+                            $(".part2_body").append(temp);
+                            html = '';
+                        }
+
+                    }
+                    $(".image").css({
+                        "background":"url(./images/"+type+".jpg) no-repeat center center",
+                        "background-size" : "cover"
+                    });
+                }
+            }
+            init();
+
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+    <title>首页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .contain {
+            width: 320px;
+            height: 500px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -250px 0 0 -160px;
+            border: 1px solid #999;
+            /*border-radius: 10px;*/
+            /*padding: 25px;*/
+            box-sizing: border-box;
+        }
+
+        .top {
+            width: 318px;
+            position: relative;
+            left: 0;
+            top: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+        }
+
+        .bottom {
+            width: 318px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+            padding: 0 9px;
+        }
+
+        a:hover {
+            color: #fa729a;
+            text-decoration: none;
+        }
+
+        .part1 {
+            width: 100%;
+            height: 75px;
+            padding: 0 5px 0 8px;
+        }
+
+        .part1_main {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            /*background: #fa729a;*/
+            float: left;
+            margin: 10px 8px;
+            text-align: center;
+            line-height: 57px;
+            font-size: 23px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .part1_main:nth-child(odd) {
+            background: #ffaeca;
+            color: #fff;
+        }
+
+        .part1_main:nth-child(odd):hover {
+            animation: move 1.5s linear 1;
+        }
+
+        .part1_main:nth-child(even) {
+
+            border: 1px solid #fa729a;
+            color: #fa729a;
+        }
+
+        .part1_main:nth-child(even):hover {
+            animation: move1 1.5s linear 1;
+        }
+
+        @keyframes move {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            33.6% {
+                transform: rotate(10deg);
+            }
+
+            66.6% {
+                transform: rotate(-10deg);
+            }
+
+            to {
+                transform: rotate(0deg);
+            }
+        }
+
+        @keyframes move1 {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            33.6% {
+                transform: rotate(-10deg);
+            }
+
+            66.6% {
+                transform: rotate(10deg);
+            }
+
+            to {
+                transform: rotate(0deg);
+            }
+        }
+
+        .part2 {
+            height: 310px;
+            width: 100%;
+        }
+
+        .part2_main {
+            width: 100%;
+            height: 90px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-right: none;
+            border-left: none;
+            padding: 7px 0 0 3px;
+            cursor: pointer;
+        }
+
+        .main_top {
+            height: 60px;
+            padding: 0 10px;
+        }
+
+        .top_left {
+            width: 57px;
+            height: 57px;
+
+            border-radius: 50%;
+            float: left;
+            overflow: hidden;
+        }
+
+        img {
+            width: 58px;
+            height: 59px;
+            ;
+        }
+
+        .top_right {
+            float: left;
+            padding-left: 15px;
+            width: 210px;
+        }
+
+        .main_bottom {
+            height: 20px;
+        }
+
+        .right1 {
+            font-size: 13px;
+            padding: 5px 0 0 0;
+        }
+
+        .right2 {
+            font-size: 13px;
+        }
+
+        .main_bottom {
+            padding-left: 5px;
+            position: relative;
+        }
+
+        .new {
+            color: #aaa;
+            font-size: 18px;
+            padding-left: 16px;
+            padding-bottom: 6px;
+        }
+
+        .part2_body {
+            width: 100%;
+            height: 270px;
+            overflow: auto;
+        }
+
+        span {
+            font-size: 12px;
+            padding: 0 7px;
+            color: #aaa;
+        }
+
+        .time {
+            position: absolute;
+            right: 18px;
+        }
+
+        .bottom_div {
+            float: left;
+            font-size: 20px;
+            margin: 0 15px;
+            cursor: pointer;
+        }
+
+        .getfriend {
+            position: absolute;
+            right: 10px;
+            top: 22px;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .getfriend img {
+            width: 19px;
+            height: auto;
+        }
+
+        .getfriend span {
+            font-size: 16px;
+            color: #333;
+            padding: 0;
+        }
+
+        .getMessage {
+            position: absolute;
+            left: 10px;
+            top: 22px;
+            z-index: 10;
+            cursor: pointer;
+            opacity: 1;
+        }
+        .getMessage.show{
+            animation: fly01 1s linear 0.4s infinite alternate;
+        }
+        @keyframes fly01 {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        .getMessage img {
+            width: 19px;
+            height: auto;
+        }
+
+        .getMessage span {
+            font-size: 16px;
+            color: #333;
+            padding: 0;
+        }
+    </style>
+    <script src="./code/jquery.min.js"></script>
+    <script src="./code/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="controLogin">
+        <div class="contain">
+            <div class="getfriend">
+                <img src="./images/friend1.png" alt="">
+                <span>0</span>
+            </div>
+            <div class="getMessage">
+                <img src="./images/xiaoxi.png" alt="">
+                
+            </div>
+            <div class="top">首 页</div>
+            <div class="part1">
+                <div class="part1_main">饮食</div>
+                <div class="part1_main">运动</div>
+                <div class="part1_main">学习</div>
+                <div class="part1_main">娱乐</div>
+            </div>
+            <div class="part2">
+                <div class="new">最新动态</div>
+                <div class="part2_body">
+                    <div class="part2_main">
+                        <div class="main_top">
+                            <div class="top_left"><img src="./tou.png" /></div>
+                            <div class="top_right">
+                                <div class="right1">饮食</div>
+                                <div class="right2">i love you very much</div>
+                            </div>
+                        </div>
+                        <div class="main_bottom">
+                            <span>小明</span>
+                            <span>男</span>
+                            <span>广州大学</span>
+                            <span class="time">时间</span>
+                        </div>
+                    </div>
+                    <div class="part2_main"></div>
+                    <div class="part2_main"></div>
+                </div>
+
+            </div>
+            <div class="bottom">
+                <div class="bottom_div index">首页</div>
+                <div class="bottom_div friend">好友</div>
+                <div class="bottom_div square">广场</div>
+                <div class="bottom_div me">关于我</div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var url = decodeURI(location.search);
+        console.log(url);
+        var urlArr = url.split('=')[1];
+        var app = angular.module('myApp', []);
+        app.controller('controLogin', function ($scope) {
+            $scope.touser = '';
+            var time = null;
+            $(".getfriend").click(function () {
+                clearInterval(time);
+                window.location.href = "./getFriend.html?username=" + urlArr;
+            });
+            $(".getMessage").click(function () {
+                if (!$scope.touser){
+                    return;
+                }
+                clearInterval(time);
+                window.location.href = "./room.html?username=" + urlArr + ",touser=" +  $scope.touser;
+            });
+            $(".part1_main").click(function () {
+                var index = $(this).index();
+                console.log(index);
+                part1Fn(index);
+            });
+            function part1Fn(temp) {
+                if (temp == 0) {
+                    window.location.href = "./index_food.html?username=" + urlArr;
+                } else if (temp == 1) {
+                    window.location.href = "./index_sport.html?username=" + urlArr;
+                } else if (temp == 2) {
+                    window.location.href = "./index_study.html?username=" + urlArr;
+                } else if (temp == 3) {
+                    window.location.href = "./index_play.html?username=" + urlArr;
+                }
+            }
+
+            $(".index").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./index.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".friend").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./friend.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".square").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./square.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".me").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./me.html?username=" + urlArr;
+                }, 0);
+            });
+            function init() {
+                console.log(urlArr);
+                sendFriendAjax();
+                sendMessage();
+                ajax(urlArr);
+            }
+            
+            time = setInterval(function(){
+                sendFriendAjax();
+                sendMessage();
+            },3000);
+            function textFn(){
+                var $username = $(".username");
+                $(".part2_main").click(function(){
+                    var index = $(this).index();
+                    console.log(index);
+                    var touser = $username.eq(index).html();
+                    console.log(touser);
+                    setTimeout(function(){
+                        window.location.href = "./room.html?username=" + urlArr + ",touser=" +  touser;
+                    },100);
+                });
+            }
+            function sendFriendAjax() {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/user/getAddFriend?token=' + urlArr,
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: { token: urlArr },
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        var t = res;
+                        getFriend(t);
+                    }
+                })
+            }
+            function getFriend(t) {
+                var t_data = t.info;
+                $(".getfriend span").html(t_data.length);
+                
+            }
+            function sendMessage() {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/user/haveMessage?token=' + urlArr,
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: { token: urlArr },
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        var t = res;
+                        getMessage(t);
+                    }
+                })
+            }
+            function getMessage(t){
+                if (t.code == 1){
+                    $(".getMessage").addClass("show");
+                    $scope.touser = t.info[0];
+                }
+            }
+            function location(t) {
+
+                if (t.code == 200) {
+                    $(".part2_body").html('');
+                    for (var i = t.info.length - 1; i >= 0; i--) {
+                        var temp = $('<div class="part2_main"></div>');
+                        var temp1 = '<div class="main_top"><div class="top_left"><img src="./tou.png"/></div><div class="top_right"><div class="right1">' + t.info[i].type
+                            + '</div><div class="right2">' + t.info[i].content + '</div></div></div>';
+                        var temp2 = '<div class="main_bottom"><span class="username">' + t.info[i].username
+                            + '</span><span>' + t.info[i].gender
+                            + '</span><span>' + t.info[i].school
+                            + '</span><span class="time">' + t.info[i].send_time + '</span></div>';
+                        temp.append(temp1).append(temp2);
+                        $(".part2_body").append(temp);
+                    }
+                    textFn();
+                }
+
+            }
+            // 发送请求
+            function ajax(temp) {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/event/getAllEvent?token=' + temp,
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: { token: temp },
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        var t = res;
+                        location(t);
+                    }
+                })
+            }
+            init();
+        });
+    </script>
+</body>
+
+</html>

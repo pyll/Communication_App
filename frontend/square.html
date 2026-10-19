@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+    <title>广场</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .contain {
+            width: 320px;
+            height: 500px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -250px 0 0 -160px;
+            border: 1px solid #999;
+            /*border-radius: 10px;*/
+            /*padding: 25px;*/
+            box-sizing: border-box;
+        }
+
+        .top {
+            width: 318px;
+            position: relative;
+            left: 0;
+            top: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+        }
+
+        .bottom {
+            width: 318px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+            padding: 0 9px;
+        }
+
+        a:hover {
+            color: #fa729a;
+            text-decoration: none;
+        }
+
+        .part1 {
+            width: 100%;
+            height: 100px;
+            position: relative;
+            top: -10px;
+        }
+
+        .slider {
+            height: 100px;
+            width: 100%;
+            position: relative;
+        }
+
+        .slider .slider_ul li {
+            position: absolute;
+            width: 100%;
+            /*top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            font-size: 16px;
+            line-height: 23px;*/
+            cursor: pointer;
+            display: none;
+        }
+
+        .slider .slider_ul li:first-child {
+            display: block;
+        }
+
+        .slider .slider_ul li img {
+            height: 100px;
+            width: 100%;
+        }
+
+        /*.slider li:hover {
+            color: #0094ff;
+        }*/
+
+        .arrow {
+            display: none;
+        }
+
+        .slider:hover .arrow {
+            display: block;
+        }
+
+        .arrow-left,
+        .arrow-right {
+            font-family: "SimSun", "宋体";
+            width: 30px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 50%;
+            margin-top: -20px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 30px;
+        }
+
+        .arrow-left:hover,
+        .arrow-right:hover {
+            background-color: rgba(0, 0, 0, .5);
+        }
+
+        .arrow-left {
+            left: 0;
+        }
+
+        .arrow-right {
+            right: 0;
+        }
+
+        .bottom_ul {
+            position: absolute;
+            bottom: -6px;
+            /* width: 100%; */
+            height: 15px;
+            /* margin: 0 auto; */
+            /* text-align: center; */
+            left: 38%;
+        }
+
+        .bottom_ul li {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid #000;
+            margin-left: 10px;
+            cursor: pointer;
+            float: left;
+        }
+
+        .bottom_ul .pink {
+            background: #fa729a;
+            border: 1px solid #fa729a;
+        }
+
+
+        .part2 {
+            height: 310px;
+            width: 100%;
+            position: relative;
+        }
+
+        .part2_main {
+            width: 100%;
+            height: 90px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-right: none;
+            border-left: none;
+            padding: 7px 0 0 3px;
+        }
+
+        .main_top {
+            height: 60px;
+            padding: 0 10px;
+        }
+
+        .top_left {
+            width: 57px;
+            height: 57px;
+            background: #ccc;
+            border-radius: 50%;
+            float: left;
+            overflow: hidden;
+        }
+
+        img {
+            width: 58px;
+            height: 59px;
+            ;
+        }
+
+        .top_right {
+            float: left;
+            padding-left: 15px;
+        }
+
+        .main_bottom {
+            height: 20px;
+        }
+
+        .right1 {
+            font-size: 13px;
+            padding: 5px 0 0 0;
+        }
+
+        .right2 {
+            font-size: 13px;
+        }
+
+        .main_bottom {
+            padding-left: 5px;
+            position: relative;
+        }
+
+        .new {
+            color: #aaa;
+            font-size: 18px;
+            padding-left: 16px;
+            padding-bottom: 6px;
+        }
+
+        .part2_body {
+            width: 100%;
+            height: 250px;
+            overflow: auto;
+        }
+
+        span {
+            font-size: 12px;
+            padding: 0 7px;
+            color: #aaa;
+        }
+
+        .time {
+            position: absolute;
+            right: 18px;
+        }
+
+        .bottom_div {
+            float: left;
+            font-size: 20px;
+            margin: 0 15px;
+            cursor: pointer;
+        }
+
+        .xin {
+            width: 21px;
+            height: 21px;
+            background: url('./xin.png') no-repeat center center;
+            display: inline-block;
+            position: absolute;
+            right: 80px;
+            bottom: 0px;
+            cursor: pointer;
+        }
+
+        .xin.zan {
+            background: url('./xin1.png') no-repeat center center;
+        }
+
+        .weixin {
+            width: 25px;
+            height: 25px;
+            background: url('./weixin.png') no-repeat center center;
+            display: inline-block;
+            position: absolute;
+            right: 18px;
+            bottom: 1px;
+            cursor: pointer;
+        }
+
+        .add {
+            position: absolute;
+            right: 25px;
+            font-size: 12px;
+            top: 3px;
+            border: 1px solid #fa729a;
+            border-radius: 10px;
+            padding: 3px;
+            cursor: pointer;
+            color: #fa729a;
+            background: #fff;
+        }
+        .add:hover{
+            color: #fff;
+            background: #fa729a;
+        }
+    </style>
+    <script src="./code/jquery.min.js"></script>
+    <script src="./code/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="controLogin">
+        <div class="contain">
+
+            <div class="top">广 场</div>
+            <div class="part1">
+                <div class="slider">
+                    <ul class="slider_ul">
+                        <li><img src="./images/1.jpg" alt=""></li>
+                        <li><img src="./images/2.jpg" alt=""></li>
+                        <li><img src="./images/3.jpg" alt=""></li>
+                        <li><img src="./images/4.jpg" alt=""></li>
+                    </ul>
+                    <ul class="bottom_ul">
+                        <li class="dian pink"></li>
+                        <li class="dian"></li>
+                        <li class="dian"></li>
+                        <li class="dian"></li>
+                    </ul>
+                    <!--箭头-->
+                    <div class="arrow">
+                        <span class="arrow-left">&lt;</span>
+                        <span class="arrow-right">&gt;</span>
+                    </div>
+                </div>
+            </div>
+            <div class="part2">
+                <div class="new">最新动态</div>
+                <div class="add">发表动态</div>
+                <div class="part2_body">
+                    <!--<div class="part2_main">
+                        <div class="main_top">
+                            <div class="top_left"><img src="./tou.png"/></div>
+                            <div class="top_right">
+                                <div class="right1">#来自广州大学</div>
+                                <div class="right2">i love you very much</div>
+                            </div>
+                        </div>
+                        <div class="main_bottom">
+                            <span>小明</span>
+                            <span>男</span>
+                            <span>广州大学</span>
+                            <span class="xin"></span>
+                            <span class="weixin"></span>
+                            
+                        </div>
+                    </div>-->
+                </div>
+
+            </div>
+            <div class="bottom">
+                <div class="bottom_div index">首页</div>
+                <div class="bottom_div friend">好友</div>
+                <div class="bottom_div square">广场</div>
+                <div class="bottom_div me">关于我</div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var url = decodeURI(location.search);
+        console.log(url);
+        var urlArr = url.split('=')[1];
+        var app = angular.module('myApp', []);
+        app.controller('controLogin', function ($scope) {
+            var index = 0;
+            var $li = $(".slider>.slider_ul>li");
+            var $dian = $(".dian");
+            $(".arrow-right").click(function () {
+                index++;
+                move();
+            });
+
+            $(".arrow-left").click(function () {
+                index--;
+                move();
+            });
+            function move() {
+                if (index == $li.length) {
+                    index = 0;
+                }
+                if (index < 0) {
+                    index = $li.length - 1;
+                }
+
+                $li.eq(index).fadeIn(1000).siblings().fadeOut(1000);
+                $dian.eq(index).addClass('pink').siblings().removeClass('pink');
+            }
+            var time;
+            time = setInterval(function () {
+                index++;
+                move();
+            }, 3000);
+            $(".slider").mouseenter(function () {
+                clearInterval(time);
+            });
+            $(".slider").mouseleave(function () {
+                time = setInterval(function () {
+                    index++;
+                    move();
+                }, 3000);
+            });
+            $(".dian").click(function () {
+                index = $(this).index();
+                //$(this).addClass('pink').siblings().removeClass('pink');
+                move();
+            });
+            // 动态添加的元素要等到添加之后才能获取到
+            function xinFn() {
+                var $xin = $(".xin");
+                $(".xin").on('click', function () {
+                    var temp = $(".xin").index(this);
+                    console.log(temp);
+                    if ($xin.eq(temp).hasClass('zan')) $xin.eq(temp).removeClass('zan');
+                    else $xin.eq(temp).addClass('zan');
+                });
+            }
+            function weixinFn() {
+                var $weixin = $(".weixin");
+                var $name = $(".name");
+                $(".weixin").on('click',function(){
+                    var temp = $(".weixin").index(this);
+                    console.log(temp);
+                    var touser = $name.eq(temp).html();
+                    console.log($name.eq(temp).html());
+                    setTimeout(function(){
+                        window.location.href = "./room.html?username=" + urlArr + ",touser=" +  touser;
+                    },100);
+                });
+            }
+            $(".add").click(function (){
+                window.location.href = "./add_square.html?username=" + urlArr;
+            });
+
+            $(".index").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./index.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".friend").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./friend.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".square").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./square.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".me").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./me.html?username=" + urlArr;
+                }, 0);
+            });
+            function init() {
+                console.log(urlArr);
+                ajax(urlArr);
+            }
+            function location(t) {
+                console.log(t);
+                if (t.code == 200) {
+                    $(".part2_body").html('');
+                    for (var i = t.info.length-1; i >= 0; i--) {
+                        var temp = $('<div class="part2_main"></div>');
+                        var temp1 = '<div class="main_top"><div class="top_left"><img src="./tou.png"/></div><div class="top_right"><div class="right1">#来自' + t.info[i].school
+                            + '</div><div class="right2">' + t.info[i].content + '</div></div></div>';
+                        var temp2 = '<div class="main_bottom"><span class="name">' + t.info[i].username
+                            + '</span><span>' + t.info[i].gender
+                            + '</span><span>' + t.info[i].school
+                            + '</span><span class="xin"></span><span class="weixin"></span></div>';
+                        temp.append(temp1).append(temp2);
+                        $(".part2_body").append(temp);
+                    }
+                    // 添加之后再用函数运行进行获取
+                    xinFn();
+                    weixinFn();
+                }
+
+            }
+            // 发送请求
+            function ajax(temp) {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/square/getAllSquare?token=' + temp,
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: { token: temp },
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        var t = res;
+                        location(t);
+                    }
+                })
+            }
+            init();
+        });
+    </script>
+</body>
+
+</html>

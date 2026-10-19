@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+    <title>登录</title>
+    <style>
+        .contain {
+            width: 320px;
+            height: 500px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -250px 0 0 -160px;
+            border: 1px solid #999;
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .form-group {
+            border: 2px solid #ccc;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            line-height: 30px;
+            height: 30px;
+            font-size: 15px;
+            /*text-indent: 5px;*/
+        }
+
+        .form-input {
+            border: none;
+            height: 20px;
+            outline: none;
+            margin-left: 8px;
+        }
+
+        label {
+            color: #fa729a;
+        }
+
+        .login_btn {
+            background: #fa729a;
+            color: #fff;
+            border: 1px solid #fa729a;
+            margin-top: 10px;
+            height: 35px;
+            font-size: 16px;
+        }
+
+        .resize {
+            color: #aaa;
+        }
+
+        a:hover {
+            color: #fa729a;
+            text-decoration: none;
+        }
+    </style>
+    <script src="./code/jquery.min.js"></script>
+    <script src="./code/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="controLogin">
+        <div class="contain">
+            <div class="login_main">
+                <div class="login_box">
+                    <form class="form-login" name="form-login">
+
+                        <div class="form-group">
+                            <label for="login_user">账号</label>
+                            <input type="text" class="form-input" name="login_user" id="login_user"
+                                ng-model="login_user" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login_pass">密码</label>
+                            <input type="password" class="form-input" name="login_pass" id="login_pass"
+                                ng-model="login_pass" required>
+                        </div>
+                        <div><a href="./resize.html" class="resize">注册账号</a></div>
+                        <button class="btn btn-primary login_btn btn-block" ng-click="login_ok()">登 录</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('controLogin', function ($scope) {
+            //用化名
+            $scope.login_user = '';
+            // 密码
+            $scope.login_pass = '';
+            //验证信息
+            $scope.login_ok = function () {
+
+                if (!$scope.login_user) {
+                    alert("账号不能为空！");
+
+                    return false;
+                }
+                if (!$scope.login_pass) {
+                    alert("密码不能为空！");
+
+                    return false;
+                }
+                var obj = {};
+                obj.username = $scope.login_user;
+                obj.password = $scope.login_pass;
+                var temp = obj;
+                console.log(temp, obj);
+                ajax(temp);
+            }
+            // 请求成功，账号密码正确之后
+            function location(t) {
+                console.log(t);
+                if (t.code == 200) {
+                    setTimeout(function () {
+                        window.location.href = "./index.html?username=" + t.info.token;
+                    }, 500);
+                }
+            }
+            $(".resize").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./resize.html";
+                }, 0);
+            });
+            // 发送请求
+            function ajax(temp) {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/user/login',
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: temp,
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        var t = res;
+                        location(t);
+                    }
+                })
+            }
+        });
+    </script>
+</body>
+
+</html>

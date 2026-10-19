@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+    <title>添加好友</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .contain {
+            width: 320px;
+            height: 500px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -250px 0 0 -160px;
+            border: 1px solid #999;
+            /*border-radius: 10px;*/
+            /*padding: 25px;*/
+            box-sizing: border-box;
+        }
+
+        .top {
+            width: 318px;
+            position: relative;
+            left: 0;
+            top: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+        }
+
+        .bottom {
+            width: 318px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+            padding: 0 9px;
+        }
+
+        a:hover {
+            color: #fa729a;
+            text-decoration: none;
+        }
+
+        .part1 {
+            width: 100%;
+            height: 790px;
+
+            position: relative;
+            overflow: auto;
+        }
+
+        .bottom_div {
+            float: left;
+            font-size: 20px;
+            margin: 0 15px;
+            cursor: pointer;
+        }
+
+        .main_bottom {
+            height: 70px;
+            box-sizing: border-box;
+            padding-left: 15px;
+            border-bottom: 1px solid #999;
+            cursor: pointer;
+        }
+
+        .main_bottom:last-child {
+            border-bottom: none;
+        }
+
+        .main_bottom div {
+            float: left;
+        }
+
+        .tu {
+            padding: 3px 0;
+        }
+
+        .text {
+            float: left;
+            padding-top: 25px;
+            padding-left: 15px;
+            color: #aaa;
+        }
+
+        .part_main {
+            height: 70px;
+            position: relative;
+        }
+
+        .agree,
+        .refuse {
+            position: absolute;
+            top: 20px;
+            right: 75px;
+            width: 60px;
+            height: 30px;
+            text-align: center;
+            line-height: 29px;
+            border: 1px solid #fa729a;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            background: #fff;
+            color: #fa729a;
+        }
+
+        .agree:hover,
+        .refuse:hover {
+            background: #fa729a;
+            color: #fff;
+        }
+
+        .refuse {
+            right: 5px;
+        }
+    </style>
+    <script src="./code/jquery.min.js"></script>
+    <script src="./code/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="controLogin">
+        <div class="contain">
+
+            <div class="top">好友请求</div>
+            <div class="part1">
+                
+            </div>
+            <div class="bottom">
+                <div class="bottom_div index">首页</div>
+                <div class="bottom_div friend">好友</div>
+                <div class="bottom_div square">广场</div>
+                <div class="bottom_div me">关于我</div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var url = decodeURI(location.search);
+        console.log(url);
+        var urlArr = url.split('=')[1];
+        var app = angular.module('myApp', []);
+        app.controller('controLogin', function ($scope) {
+
+            var data = [];
+            $(".index").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./index.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".friend").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./friend.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".square").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./square.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".me").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./me.html?username=" + urlArr;
+                }, 0);
+            });
+            function Fn() {
+                $(".agree").on('click', function () {
+                    var obj = {};
+                    var index = $(".agree").index(this);
+                    console.log(index);
+                    obj.username = data[index].username;
+                    obj.token = urlArr;
+                    obj.agree = 1;
+                    isFriend(obj);
+                });
+                $(".refuse").on('click', function () {
+                    var obj = {};
+                    var index = $(".refuse").index(this);
+                    obj.username = data[index].username;
+                    obj.token = urlArr;
+                    obj.agree = 2;
+                    isFriend(obj);
+                });
+            }
+            function init() {
+                sendFriendAjax();
+            }
+            function location(t) {
+                init();
+            }
+            function isFriend(temp) {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/user/responseAddFriend?token=' + urlArr,
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: temp,
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        var t = res;
+                        location(t);
+                    }
+                })
+            }
+            function sendFriendAjax() {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/user/getAddFriend?token=' + urlArr,
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: { token: urlArr },
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        var t = res;
+                        getFriend(t);
+                    }
+                })
+            }
+            function getFriend(t) {
+                data = t.info;
+                $(".part1").html('');
+                for (var i = 0; i < data.length; i++) {
+                    var newa = $('<div class="part_main"></div>');
+                    var body = '<div class="main_bottom"><div class="tu"><img src="./tou.png" /></div><div class="text">' +
+                        data[i].username + '</div></div>';
+                    var temp1 = '<div class="agree">同意</div>';
+                    var temp2 = '<div class="refuse">拒绝</div>';
+                    newa.append(body).append(temp1).append(temp2);
+                    $(".part1").append(newa);
+                }
+                Fn();
+            }
+            init();
+        });
+    </script>
+</body>
+
+</html>

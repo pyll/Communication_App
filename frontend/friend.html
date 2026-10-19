@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+    <title>好友</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .contain {
+            width: 320px;
+            height: 500px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -250px 0 0 -160px;
+            border: 1px solid #999;
+            /*border-radius: 10px;*/
+            /*padding: 25px;*/
+            box-sizing: border-box;
+        }
+
+        .top {
+            width: 318px;
+            position: relative;
+            left: 0;
+            top: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+        }
+
+        .bottom {
+            width: 318px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+            padding: 0 9px;
+        }
+
+        a:hover {
+            color: #fa729a;
+            text-decoration: none;
+        }
+
+
+        .part2 {
+            height: 395px;
+            width: 100%;
+        }
+
+        .part_body {
+            padding-top: 30px;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .main_top {
+            width: 100%;
+            height: 20px;
+            background: #d8d8d8;
+            font-size: 16px;
+            text-indent: 15px;
+            color: #666;
+        }
+
+        .main_bottom {
+            height: 70px;
+            box-sizing: border-box;
+            padding-left: 15px;
+            border-bottom: 1px solid #999;
+            cursor: pointer;
+        }
+
+        .main_bottom:last-child {
+            border-bottom: none;
+        }
+
+        .main_bottom div {
+            float: left;
+        }
+
+        .tu {
+            padding: 5px 0;
+        }
+
+        .text {
+            float: left;
+            padding-top: 25px;
+            padding-left: 15px;
+            color: #aaa;
+        }
+
+        .top_left {
+            width: 57px;
+            height: 57px;
+
+            border-radius: 50%;
+            float: left;
+            overflow: hidden;
+        }
+
+        img {
+            width: 58px;
+            height: 59px;
+        }
+
+        .top_right {
+            float: left;
+            padding-left: 15px;
+        }
+
+        .bottom_div {
+            float: left;
+            font-size: 20px;
+            margin: 0 15px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="./code/jquery.min.js"></script>
+    <script src="./code/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="controLogin">
+        <div class="contain">
+
+            <div class="top">好 友</div>
+            <div class="part2">
+                <div class="part_body">
+                    
+                    
+                </div>
+
+            </div>
+            <div class="bottom">
+                <div class="bottom_div index">首页</div>
+                <div class="bottom_div friend">好友</div>
+                <div class="bottom_div square">广场</div>
+                <div class="bottom_div me">关于我</div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var url = decodeURI(location.search);
+        console.log(url);
+        var urlArr = url.split('=')[1];
+        var app = angular.module('myApp', []);
+        app.controller('controLogin', function ($scope) {
+
+            $(".index").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./index.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".friend").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./friend.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".square").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./square.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".me").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./me.html?username=" + urlArr;
+                }, 0);
+            });
+            function init() {
+                console.log(urlArr);
+                ajax(urlArr);
+            }
+            function textFn(){
+                var $text = $(".text");
+                $(".main_bottom").on('click',function(){
+                    var index = $(".main_bottom").index(this);
+                    console.log(index);
+                    var touser = $text.eq(index).html();
+                    console.log(touser);
+                    setTimeout(function(){
+                        window.location.href = "./room.html?username=" + urlArr + ",touser=" +  touser;
+                    },100);
+                });
+            }
+            function location(t) {
+                var params = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+                var params1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                if (t.code == 200) {
+                    
+                    $(".part_body").html('');
+                    var arr = new Array(26);
+                    for (var i = 0; i < 26; i++) {
+                        arr[i] = [];
+                    }
+                    for (var i = 0; i < t.info.length; i++) {
+                        var temp = t.info[i].username.split('')[0];
+                        var temp1 = temp.toUpperCase();
+                        var index = params1.indexOf(temp1);
+                        console.log(index);
+                        arr[index].push(t.info[i].username);
+                    }
+                    for (var i = 0; i < 26; i++) {
+                        if (arr[i].length) {
+                            var newa = $('<div class="part_main"></div>');
+                            var top = '<div class="main_top">' + params[i] + '</div>';
+                            newa.append(top);
+                            for (var j = 0; j < arr[i].length; j++) {
+                                var body = '<div class="main_bottom"><div class="tu"><img src="./tou.png" /></div><div class="text">' +
+                                    arr[i][j] + '</div></div>';
+                                newa.append(body);
+                            }
+                            $(".part_body").append(newa);
+                        }
+                    }
+                    textFn();
+                }
+
+            }
+            // 发送请求
+            function ajax(temp) {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/user/getFriendList?token=' + temp,
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: { token: temp },
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        var t = res;
+                        location(t);
+                    }
+                })
+            }
+            init();
+        });
+    </script>
+</body>
+
+</html>

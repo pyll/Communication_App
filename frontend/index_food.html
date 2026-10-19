@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+    <title>首页饮食</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .contain {
+            width: 320px;
+            height: 500px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -250px 0 0 -160px;
+            border: 1px solid #999;
+            /*border-radius: 10px;*/
+            /*padding: 25px;*/
+            box-sizing: border-box;
+        }
+
+        .top {
+            width: 318px;
+            position: relative;
+            left: 0;
+            top: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+        }
+
+        .bottom {
+            width: 318px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+            padding: 0 9px;
+        }
+
+        a:hover {
+            color: #fa729a;
+            text-decoration: none;
+        }
+
+        .part1 {
+            width: 100%;
+            height: 75px;
+            padding: 0 5px 0 8px;
+            position: relative;
+        }
+
+        .part1_main {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            font-size: 17px;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .part1_main:hover {
+            animation: none;
+        }
+
+        .part1_main:nth-child(odd) {
+            background: #fa729a;
+            color: #fff;
+        }
+
+        .part1_main:nth-child(even) {
+
+            border: 1px solid #fa729a;
+            color: #fa729a;
+        }
+
+        .english {
+            position: absolute;
+            left: 86px;
+            top: 10px;
+            animation: fly01 1s linear infinite alternate;
+            /*无穷次*/
+            /*逆播放*/
+        }
+
+        .write {
+            position: absolute;
+            top: 40px;
+            animation: fly01 1.3s linear 0.3s infinite alternate;
+        }
+
+        .read {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            animation: fly01 1s linear 0.4s infinite alternate;
+        }
+
+        .draw {
+            position: absolute;
+            right: 96px;
+            top: 30px;
+            animation: fly01 1.3s linear 0.5s infinite alternate;
+        }
+
+        @keyframes fly01 {
+            from {
+                transform: translateY(0px);
+            }
+
+            to {
+                transform: translateY(15px);
+            }
+        }
+
+        .part2 {
+            height: 300px;
+            padding-top: 30px;
+            width: 100%;
+            position: relative;
+        }
+
+        .part2_main {
+            width: 80px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        
+        .dongtai {
+            background: #fa729a;
+            color: #fff;
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            animation: move 6s linear 0.2s infinite alternate;
+        }
+
+        .zixun {
+            border: 1px solid #fa729a;
+            color: #fa729a;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            animation: move1 6s linear 0.5s infinite alternate;
+        }
+        @keyframes move {
+            from {
+                left: 0;
+            }
+
+            to {
+               left: 236px;
+            }
+        }
+        @keyframes move1 {
+            from {
+                right: 0;
+            }
+
+            to {
+               right: 236px;
+            }
+        }
+        .bottom_div {
+            float: left;
+            font-size: 20px;
+            margin: 0 15px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="./code/jquery.min.js"></script>
+    <script src="./code/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="controLogin">
+        <div class="contain">
+
+            <div class="top">饮 食</div>
+            <div class="part1">
+                <div class="part1_main english">三餐</div>
+                <div class="part1_main write">奶茶</div>
+                <div class="part1_main read">火锅</div>
+                <div class="part1_main draw">水果</div>
+            </div>
+            <div class="part2">
+                <div class="part2_main dongtai">动态</div>
+                <div class="part2_main zixun">资讯</div>
+            </div>
+            <div class="bottom">
+                <div class="bottom_div index">首页</div>
+                <div class="bottom_div friend">好友</div>
+                <div class="bottom_div square">广场</div>
+                <div class="bottom_div me">关于我</div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var url = decodeURI(location.search);
+        console.log(url);
+        var urlArr = url.split('=')[1];
+        var app = angular.module('myApp', []);
+        app.controller('controLogin', function ($scope) {
+
+            $(".dongtai").click(function (){
+                window.location.href = "./food.html?username=" + urlArr;
+            });
+            $(".part1_main").click(function(){
+                var index = $(this).index();
+                console.log(index);
+                switch (index){
+                    case 0:$scope.content = 'meal';break;
+                    case 1:$scope.content = 'milktea';break;
+                    case 2:$scope.content = 'hotpot';break;
+                    case 3:$scope.content = 'fruit';break;
+                }
+                console.log($scope.content);
+            });
+            $(".zixun").click(function(){
+                if (!$scope.content){
+                    alert("请先选择上面的种类");
+                    return;
+                }
+                window.location.href = "./zixun.html?username=" + urlArr+ ",touser=" +  $scope.content + ",food";
+            });
+            $(".index").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./index.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".friend").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./friend.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".square").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./square.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".me").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./me.html?username=" + urlArr;
+                }, 0);
+            });
+
+            function location(t) {
+
+
+            }
+
+
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+    <title>我</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .contain {
+            width: 320px;
+            height: 500px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -250px 0 0 -160px;
+            border: 1px solid #999;
+            /*border-radius: 10px;*/
+            /*padding: 25px;*/
+            box-sizing: border-box;
+        }
+
+        .top {
+            width: 318px;
+            position: relative;
+            left: 0;
+            top: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+        }
+
+        .bottom {
+            width: 318px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background: #fa729a;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 21px;
+            color: #fff;
+            padding: 0 9px;
+        }
+
+
+
+        .part1 {
+            width: 100%;
+            height: 35px;
+            padding: 0 5px 0 8px;
+            display: flex;
+
+        }
+
+        .part1_main {
+            float: left;
+            flex: 1;
+            text-align: center;
+            line-height: 35px;
+            font-size: 17px;
+            color: #000;
+            font-family: "微软雅黑";
+            box-sizing: border-box;
+            cursor: pointer;
+            margin: 0 20px;
+        }
+
+        .part1_main.action {
+            border-bottom: 2px solid #fa729a;
+        }
+
+
+        .part2 {
+            height: 350px;
+            width: 100%;
+            position: relative;
+            padding-top: 10px;
+            display: none;
+        }
+
+        .part2.show {
+            display: block;
+        }
+
+        .part2_main {
+            width: 100%;
+            height: 85px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-right: none;
+            border-left: none;
+            padding: 10px 0 0 20px;
+            position: relative;
+        }
+
+        .part2_body {
+            width: 100%;
+            height: 320px;
+            overflow: auto;
+        }
+
+        .main_left {
+            float: left;
+            width: 60px;
+            height: 60px;
+            position: relative;
+        }
+
+        .day {
+            position: absolute;
+            left: 0;
+            top: 3px;
+            font-size: 24px;
+        }
+
+        .month {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+        }
+
+        .type {
+            font-size: 18px;
+        }
+
+        .content {
+            margin-top: 10px;
+            width: 284px;
+        }
+
+        .time {
+            position: absolute;
+            right: 30px;
+            top: 10px;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        a:hover {
+            color: #aaa;
+        }
+
+        .bottom_div {
+            float: left;
+            font-size: 20px;
+            margin: 0 15px;
+            cursor: pointer;
+        }
+
+        .tou {
+            height: 74px;
+            border-top: 1px solid #000;
+            text-align: center;
+            line-height: 68px;
+            position: relative;
+        }
+
+        .update {
+            position: absolute;
+            right: 74px;
+            top: 40px;
+            cursor: pointer;
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        img {
+            width: 58px;
+            height: 59px;
+        }
+
+        .form-group {
+            border: 2px solid #ccc;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            line-height: 30px;
+            height: 30px;
+            font-size: 15px;
+            position: relative;
+            /*text-indent: 5px;*/
+        }
+
+        .form-input {
+            border: none;
+            height: 20px;
+            outline: none;
+            margin-left: 8px;
+        }
+
+        label {
+            color: #666;
+        }
+
+        .login_btn {
+            background: #fa729a;
+            color: #fff;
+            border: 1px solid #fa729a;
+            margin-top: 10px;
+            height: 35px;
+            font-size: 16px;
+        }
+
+        .radio-input {
+            position: absolute;
+            left: 80px;
+            top: 2px;
+            width: 16px;
+        }
+
+        .radio-input:last-child {
+            left: 143px;
+        }
+
+        .radio-label {
+            margin-left: 20px;
+        }
+
+        .form-select {
+            margin-left: 10px;
+            width: 170px;
+            height: 24px;
+            line-height: 24px;
+        }
+
+        .part2_bottom {
+            padding: 10px 25px 0 25px;
+        }
+
+        .form-group span {
+            margin-left: 15px;
+        }
+
+        .sendActy {
+            font-size: 12px;
+            border: 1px solid #fa729a;
+            border-radius: 10px;
+            margin: 0 0 5px 5px;
+            cursor: pointer;
+            color: #fa729a;
+            background: #fff;
+            width: 60px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+        }
+
+        .sendActy:hover {
+            color: #fff;
+            background: #fa729a;
+        }
+    </style>
+    <script src="./code/jquery.min.js"></script>
+    <script src="./code/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="controLogin">
+        <div class="contain">
+
+            <div class="top">我</div>
+            <div class="part1">
+                <div class="part1_main action">我的发布</div>
+                <div class="part1_main">个人资料</div>
+            </div>
+            <div class="part2 show">
+                <div class="sendActy">发布活动</div>
+                <div class="part2_body">
+                    <!--<div class="part2_main">
+                        <div class="main_left">
+                            <span class="day">22</span>
+                            <span class="month">3月</span>
+                        </div>
+                        <div class="main_right">
+                            <div class="type">运动</div>
+                            <div class="content">今晚六点不见不散</div>
+                        </div>
+                        <a class="time">删除</a>
+                    </div>-->
+
+                </div>
+
+            </div>
+            <div class="part2">
+                <div class="tou">
+                    <div class="tou_main"><img src="./tou.png" /></div>
+                    <div class="update">修改资料</div>
+                </div>
+                <div class="part2_bottom">
+                    <form class="form-login" name="form-login">
+                        <div class="form-group">
+                            <label for="login_school">学校</label>
+                            <span class="school"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="login_sex">性别</label>
+                            <span class="gender"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="login_user">账号</label>
+                            <span class="user"></span>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="bottom">
+                <div class="bottom_div index">首页</div>
+                <div class="bottom_div friend">好友</div>
+                <div class="bottom_div square">广场</div>
+                <div class="bottom_div me">关于我</div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var url = decodeURI(location.search);
+        console.log(url);
+        var urlArr = url.split('=')[1];
+        // 存信息
+        var data = [];
+        var app = angular.module('myApp', []);
+        app.controller('controLogin', function ($scope) {
+
+
+            $(".index").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./index.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".friend").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./friend.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".square").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./square.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".me").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./me.html?username=" + urlArr;
+                }, 0);
+            });
+            //点击发布活动
+            $(".sendActy").click(function () {
+                setTimeout(function () {
+                    window.location.href = "./send_acty.html?username=" + urlArr;
+                }, 0);
+            });
+            $(".update").click(function(){
+                window.location.href = "./update_user.html?username=" + urlArr;
+            });
+            // 新建的元素不能执行点击事件，需要用代理的方式
+            function clickTime() {
+
+                $('.time').on('click', function () {
+                    var index = $(".time").index(this);
+                    console.log('index', index);
+                    var obj = {};
+                    obj.id = data[index].id;
+                    obj.token = urlArr;
+                    console.log(obj);
+                    del(obj);
+                });
+            }
+           
+            
+            // 选项卡功能，切换
+            $(".part1_main").click(function () {
+                var index = $(this).index();
+                $(this).addClass("action").siblings().removeClass("action");
+                $(".part2").eq(index).addClass("show").siblings().removeClass("show");
+            });
+            // 初始化
+            function init() {
+                ajax();
+                getUserAjax();
+            }
+            // 请求成功之后渲染数据
+            function location(t) {
+                if (t.code == 200) {
+                    data = [];
+                    $(".part2_body").html('');
+                    for (var i = t.info.length-1; i >= 0; i--) {
+                        var temp = $('<div class="part2_main"></div>');
+                        var params = t.info[i].send_time.split(' ')[0];
+                        var params_arr = params.split('-');
+                        var day = params_arr[2];
+                        var month = parseInt(params_arr[1]);
+                        var temp1 = '<div class="main_left"><span class="day">' + day + '</span><span class="month">' + month + '月</span></div>';
+                        var temp2 = '<div class="main_right"><div class="type">' + t.info[i].type
+                            + '</div><div class="content">' + t.info[i].content + '</div></div>';
+                        var temp3 = '<a class="time">删除</a>';
+                        temp.append(temp1).append(temp2).append(temp3);
+                        $(".part2_body").append(temp);
+                        data.push(t.info[i]);
+                    }
+                    clickTime();
+                }
+
+            }
+            // 发送请求
+            function ajax() {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/event/getMyEvent?token=' + urlArr,
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: { token: urlArr },
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        var t = res;
+                        location(t);
+                    }
+                })
+            }
+            function del(temp) {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/event/delMyEvent?token=' + urlArr,
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: temp,
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        ajax();
+                    }
+                })
+            }
+            function getUserAjax() {
+                $.ajax({
+                    url: 'http://120.78.91.11:8000/user/getUserInfo?token=' + urlArr,
+                    type: 'post',
+                    // 设置的是请求参数
+                    data: { token: urlArr },
+                    // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+                    //dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        var t = res;
+                        getUser(t);
+                    }
+                })
+            }
+
+            function getUser(t) {
+                if (t.code == 200) {
+                    console.log(t.info.school);
+                    // $scope.login_school.name = t.info.school;
+                    $(".school").html(t.info.school);
+                    $(".user").html(t.info.username);
+                    $(".gender").html(t.info.gender);
+                }
+            }
+            init();
+        });
+    </script>
+</body>
+
+</html>
